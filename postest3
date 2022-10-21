@@ -1,0 +1,194 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+struct KartuTandaPenduduk{
+  string nik,nama,jenkel,pekerjaan;
+  string goldar,agama,tanggal,negara,status;
+};KartuTandaPenduduk *simpan;
+struct tanggal{
+  string tempat;
+  int hari,bulan,tahun;
+};tanggal *tang;
+struct alamat{
+  string rt,rw,kel,kec,alamat;
+};alamat *alm;
+class Ktp{  
+  friend ostream &operator<<(ostream &, const Ktp &);
+  friend istream &operator>>(istream &, Ktp &);
+  private:
+int a=1;
+
+	
+	  
+};
+
+istream &operator>>(istream &in, Ktp &out) {
+    simpan= new KartuTandaPenduduk[out.a];
+    tang=new tanggal[out.a];
+    alm= new alamat[out.a];
+    int pilih;
+  	for (int i = 0; i < out.a; i++) {
+  	cout<<"<<<<MEMASUKAN simpan KTP DENGAN BENAR>>>> "<<endl;
+    cout<<"========================================";
+    cout<<endl;
+    cout<<"NIK                  : ";
+    in>>simpan[i].nik;
+    cout<<"Nama                 : ";
+    in.ignore();
+    getline(in, simpan[i].nama);
+
+    cout<<"\nJenis Kelamin        : ";
+    cout<<"\n1. LAKI-LAKI"<<endl;
+    cout<<"2. PEREMPUAN"<<endl;
+    cout<<"Pilih: ";
+    in>>pilih;
+      if(pilih==1){
+        simpan[i].jenkel = "LAKI-LAKI";
+      }else if(pilih==2){
+        simpan[i].jenkel = "PEREMPUAN";
+      }else{
+        cout<<"PILIH YANG BENAR!";
+      }
+    cout<<endl; 
+    cout<<"\nGolongan Darah       : ";
+    in>>simpan[i].goldar;
+    cout<<endl;
+    cout<<"\nAgama                : "<<endl;
+    cout<<"1. ISLAM\n";
+    cout<<"2. KRISTEN\n";
+    cout<<"3. HINDU\n";
+    cout<<"4. BUDHA\n";
+    cout<<"5. KATHOLIK\n";
+    cout<<"6. KONGHUCU\n";
+    cout<<"Pilih: ";
+    in>>pilih;
+      if(pilih==1){
+        simpan[i].agama = "ISLAM";
+      }else if(pilih==2){
+        simpan[i].agama = "KRISTEN";
+      }else if(pilih==3){
+        simpan[i].agama = "HINDU";
+      }else if(pilih==4){
+        simpan[i].agama = "BUDHA";
+      }else if(pilih==5){
+        simpan[i].agama = "KATHOLIK";
+      }else if(pilih==6){
+        simpan[i].agama = "KONGHUCU";
+      }else{
+        cout<<"PILIH YANG BENAR!";
+      }
+    cout<<endl;
+    cout<<"\nStatus Perkawinan    : "<<endl;
+    cout<<"1.KAWIN\n";
+    cout<<"2.BELUM KAWIN\n";
+    cout<<"Pilih: ";
+    in>>pilih;
+      if(pilih==1){
+        simpan[i].status = "KAWIN";
+      }else if(pilih==2){
+        simpan[i].status = "BELUM KAWIN";
+      }else{
+        cout<<"PILIH YANG BENAR!";
+      }
+    cout<<endl;
+    cout<<"\nPekerjaan            : ";
+    in.ignore();
+    getline(in, simpan[i].pekerjaan);
+    cout<<endl;
+    cout<<"\nKewarganegaraan      : "<<endl;
+    cout<<"1. WNI"<<endl;
+    cout<<"2. WNA"<<endl;
+    cout<<"Pilih: ";
+    in>>pilih;
+      if(pilih==1){
+        simpan[i].negara = "WNI";
+      }else if(pilih==2){
+        simpan[i].negara = "WNA";
+      }else{
+        cout<<"PILIH YANG BENAR!";
+      }
+    cout<<endl;
+    cout<<"\nBerlaku Hingga       : ";
+    in.ignore();
+    getline(in, simpan[i].tanggal);  
+      }
+    cout<<endl;
+    for (int i = 0; i < out.a; i++) {
+    cout<<"\nTempat Lahir         : ";
+    in.ignore();
+    getline(in, tang[i].tempat); 
+    cout<<"Tanggal              : ";
+    in>>tang[i].hari;
+    cout<<"Bulan                : ";
+    in>>tang[i].bulan;
+    cout<<"Tahun                : ";
+    in>>tang[i].tahun;
+    
+    
+      }
+    //m
+    cout<<endl;
+    for (int i = 0; i < out.a; i++) {
+    cout<<"\nAlamat               : ";
+    in.ignore();
+    getline(in, alm[i].alamat);
+    cout<<"\nRT                   : ";
+    in>>alm[i].rt;
+    cout<<"RW                   : ";
+    in>>alm[i].rw;
+    cout<<"Kel/Desa             : ";
+    in>>alm[i].kel;
+    cout<<"Kecamatan            : ";
+    in>>alm[i].kec;
+      }
+  
+ // Tulis simpan ke dalam file
+  ofstream cetak;
+  cetak.open("simpandata.txt");
+  for (int i = 0; i < out.a; i++) {
+    cetak<< "NIK                  : "<<simpan[i].nik<< "\n\n";
+    cetak<< "Nama                 : "<<simpan[i].nama<< endl;
+    
+    for (int i = 0; i < out.a; i++) {
+      cetak<< "Tempat/tanggal Lahir : "<<tang[i].tempat<<", "<<tang[i].hari<<"-"<<tang[i].bulan<<"-"<<tang[i].tahun<<endl;
+    }
+    cetak<< "Jenis Kelamin        : "<<simpan[i].jenkel
+        << "\tGol. Darah : " <<simpan[i].goldar<<endl;
+
+    for (int i = 0; i < out.a; i++) {
+      cetak<< "Alamat               : "<<alm[i].alamat<<endl;
+      cetak<< "\tRT/RW        : "<<alm[i].rt<<"/"<<alm[i].rw<<endl;
+      cetak<< "\tKel/Desa     : "<<alm[i].kel<<endl;
+      cetak<< "\tKecamatan    : "<<alm[i].kec<<endl;
+     }  
+    cetak<< "Agama                : "<<simpan[i].agama<<endl;
+    cetak<< "Status Perkawinan    : "<<simpan[i].status<<endl;
+    cetak<< "Pekerjaan            : "<<simpan[i].pekerjaan<<endl;
+    cetak<< "Kewarganegaraan      : "<<simpan[i].negara<<endl;
+    cetak<< "Berlaku Hingga       : "<<simpan[i].tanggal<<endl;
+    cetak<< "========================================\n";
+  }
+  cetak.close();
+}
+ostream &operator<<(ostream &out, const Ktp &outp) {
+  string simpan;
+  ifstream write;
+  write.open("simpandata.txt");
+  if (write.is_open()) {
+    while (getline(write, simpan)) {
+      out<<simpan<<"\n";
+    }
+    write.close();
+  } else{
+    out<<"Data tidak ada";
+    return out;
+  }
+}
+
+int main() {
+  Ktp n;
+
+  cin>>n;
+  cout<<n;
+}
+
